@@ -1,10 +1,10 @@
 package main
 
 import (
+	"config"
 	"log"
 	"strings"
-	"ytbot/config"
-	youtube "ytbot/youtubeHandler"
+	"youtubeHandler"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
