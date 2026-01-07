@@ -31,11 +31,15 @@ func main() {
 	updates := bot.GetUpdatesChan(u)
 
 	for update := range updates {
-		if strings.Contains(update.Message.Text, "youtube.com") ||
-			strings.Contains(update.Message.Text, "youtu.be") {
-			go youtube.HandleYouTube(bot, update.Message)
-		} else {
-
+		if update.Message != nil {
+			if strings.Contains(update.Message.Text, "youtube.com") {
+				go youtubeHandler.HandleYouTube(bot, update.Message)
+			}
+		} else if update.CallbackQuery != nil {
+			callback := update.CallbackQuery
+			if strings.HasPrefix(callback.Data, "sq") {
+				go youtubeHandler.HandleCallback(bot, callback)
+			}
 		}
 	}
 }
